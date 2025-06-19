@@ -48,7 +48,7 @@ public class FormSubmissionsController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable UUID id){
         formSubmissionsRepository.deleteById(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }
