@@ -1,7 +1,7 @@
-package com.naukri.database_api.controllers;
+package com.naukri.database_api.controller;
 
-import com.naukri.database_api.models.Skill;
-import com.naukri.database_api.repositories.SkillRepository;
+import com.naukri.database_api.model.Skill;
+import com.naukri.database_api.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

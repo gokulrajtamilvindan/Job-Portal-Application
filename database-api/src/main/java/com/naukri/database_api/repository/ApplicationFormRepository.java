@@ -1,6 +1,6 @@
-package com.naukri.database_api.repositories;
+package com.naukri.database_api.repository;
 
-import com.naukri.database_api.models.ApplicationForm;
+import com.naukri.database_api.model.ApplicationForm;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

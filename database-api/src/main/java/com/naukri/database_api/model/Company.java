@@ -1,8 +1,11 @@
-package com.naukri.database_api.models;
+package com.naukri.database_api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -33,4 +36,11 @@ public class Company {
 
     @Column(nullable = false)
     String industry;
+
+    @CreationTimestamp
+    LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    LocalDateTime updatedAt;
+
 }

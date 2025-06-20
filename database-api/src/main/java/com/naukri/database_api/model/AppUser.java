@@ -1,4 +1,4 @@
-package com.naukri.database_api.models;
+package com.naukri.database_api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -34,6 +35,9 @@ public class AppUser {
 
     @ManyToOne
     Company company;
+
+    @ManyToMany
+    List<Skill> skillSet;
 
     @CreationTimestamp
     LocalDateTime createdAt;

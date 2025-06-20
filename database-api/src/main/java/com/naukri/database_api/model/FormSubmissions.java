@@ -1,4 +1,4 @@
-package com.naukri.database_api.models;
+package com.naukri.database_api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,11 +12,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ApplicationForm {
+public class FormSubmissions {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
 
-    @ManyToMany
-    List<Questions> questionsList;
+    @OneToMany
+    List<Answer> answers;
 }

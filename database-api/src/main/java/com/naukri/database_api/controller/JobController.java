@@ -1,7 +1,7 @@
-package com.naukri.database_api.controllers;
+package com.naukri.database_api.controller;
 
-import com.naukri.database_api.models.Job;
-import com.naukri.database_api.repositories.JobRepository;
+import com.naukri.database_api.model.Job;
+import com.naukri.database_api.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

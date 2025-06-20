@@ -1,4 +1,4 @@
-package com.naukri.database_api.models;
+package com.naukri.database_api.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
