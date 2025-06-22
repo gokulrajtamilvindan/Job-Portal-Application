@@ -36,6 +36,17 @@ public class UserService {
 
     }
 
+    public boolean validateCredentials(String email, String password) {
+
+        AppUser user = dbApiConnector.getUserByEmailEndpoint(email);
+        if (user.getPassword().equals(password)) {
+            return true;
+        }
+
+        return false;
+
+    }
+
     AppUser saveUser(AppUser user) {
 
         return dbApiConnector.callSaveUserEndpoint(user);

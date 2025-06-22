@@ -31,6 +31,12 @@ public class AppUserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
+    @GetMapping("/email/{emailId}")
+    public ResponseEntity getUserByEmail(@PathVariable String emailId) {
+        AppUser user = appUserRepository.findByEmail(emailId);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getUserById(@PathVariable UUID id) {
         AppUser user = appUserRepository.findById(id).orElse(null);
