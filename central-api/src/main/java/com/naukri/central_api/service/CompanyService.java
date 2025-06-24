@@ -2,6 +2,8 @@ package com.naukri.central_api.service;
 
 import com.naukri.central_api.connector.DataBaseApiConnector;
 import com.naukri.central_api.dto.CompanyRegistrationDto;
+import com.naukri.central_api.dto.RecruiterDetailsDto;
+import com.naukri.central_api.exception.UnAuthorizedException;
 import com.naukri.central_api.model.AppUser;
 import com.naukri.central_api.model.Company;
 import com.naukri.central_api.utility.MappingUtility;
@@ -53,6 +55,21 @@ public class CompanyService {
     public Company save(Company company) {
 
         return dbApiConnector.callSaveCompanyEndpoint(company);
+
+    }
+
+    public AppUser inviteRecruiter(RecruiterDetailsDto recruiterDetailsDto,
+                                   String Authorization) {
+
+        String token = Authorization.substring(7);
+        AppUser admin = userService.getUserFromToken(token);
+        if (!userService.isAdminUser(admin)) {
+            throw new UnAuthorizedException("Invalid Operation");
+        }
+        Company company = admin.getCompany();
+
+        AppUser recruiter = mappingUtility.mapRecruiterDtoToAppUser(recruiterDetailsDto, company);
+        return userService.saveUser(recruiter);
 
     }
 

@@ -16,10 +16,13 @@ public class DataBaseApiConnector extends RestApi{
 
     ModelMapper modelMapper = new ModelMapper();
 
-    public AppUser getUserByEmailEndpoint(String email) {
+    public AppUser callGetUserByEmailEndpoint(String email) {
 
         String endpoint = baseUrl + "/user/email" + email;
         Object response = this.makeGetCall(endpoint, new HashMap<>());
+        if (response == null) {
+            return null;
+        }
         return modelMapper.map(response, AppUser.class);
 
     }
@@ -28,6 +31,9 @@ public class DataBaseApiConnector extends RestApi{
 
         String url = baseUrl + "/skill/get/" + skillName;
         Object response = this.makeGetCall(url, new HashMap<>());
+        if (response == null) {
+            return null;
+        }
         return modelMapper.map(response, Skill.class);
 
     }
@@ -36,6 +42,9 @@ public class DataBaseApiConnector extends RestApi{
 
         String url = baseUrl + "/user/save";
         Object response = this.makePostCall(url, user, new HashMap<>());
+        if (response == null) {
+            return null;
+        }
         return modelMapper.map(response, AppUser.class);
 
     }
@@ -44,6 +53,9 @@ public class DataBaseApiConnector extends RestApi{
 
         String url = baseUrl + "/skill/save";
         Object response = this.makePostCall(url, skill, new HashMap<>());
+        if (response == null) {
+            return null;
+        }
         return modelMapper.map(response, Skill.class);
 
     }
@@ -52,6 +64,9 @@ public class DataBaseApiConnector extends RestApi{
 
         String url = baseUrl + "/company/save";
         Object response = this.makePostCall(url, company, new HashMap<>());
+        if (response == null) {
+            return null;
+        }
         return modelMapper.map(response, Company.class);
 
     }

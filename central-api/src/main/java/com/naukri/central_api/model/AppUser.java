@@ -17,6 +17,7 @@ public class AppUser {
     String name;
     String email;
     String password;
+    String status;
     Long phoneNumber;
     String userType;
     Company company;

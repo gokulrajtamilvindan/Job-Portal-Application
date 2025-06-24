@@ -28,6 +28,8 @@ public class AppUser {
     @Column(nullable = false)
     String password;
 
+    String status;
+
     @Column(unique = true, nullable = false)
     Long phoneNumber;
 

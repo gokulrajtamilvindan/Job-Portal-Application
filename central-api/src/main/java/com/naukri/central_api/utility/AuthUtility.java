@@ -39,7 +39,7 @@ public class AuthUtility {
 
     }
 
-    public String decryptToken(String token) {
+    public String decryptJwtToken(String token) {
 
         String payload = Jwts.parser().setSigningKey(secretPassword)
                 .parseClaimsJws(token)
@@ -52,7 +52,7 @@ public class AuthUtility {
 
     public boolean validateToken(String token) {
 
-        String payload = this.decryptToken(token);
+        String payload = this.decryptJwtToken(token);
         String [] details = payload.split(":");
         String email = details[0];
         String password = details[1];
