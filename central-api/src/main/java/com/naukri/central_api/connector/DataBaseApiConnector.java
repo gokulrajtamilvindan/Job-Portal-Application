@@ -18,7 +18,7 @@ public class DataBaseApiConnector extends RestApi{
 
     public AppUser callGetUserByEmailEndpoint(String email) {
 
-        String endpoint = baseUrl + "/user/email" + email;
+        String endpoint = baseUrl + "/user/email/" + email;
         Object response = this.makeGetCall(endpoint, new HashMap<>());
         if (response == null) {
             return null;

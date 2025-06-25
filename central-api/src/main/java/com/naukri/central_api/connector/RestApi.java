@@ -54,7 +54,7 @@ public class RestApi {
     public Object makePutCall(String url, Object body, Map<String, String> queryParams) {
 
         url = this.addQueryParams(url, queryParams);
-        RequestEntity request = RequestEntity.put(url).build();
+        RequestEntity request = RequestEntity.put(url).body(body);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Object> response = restTemplate.exchange(url, HttpMethod.PUT, request, Object.class);
         return response.getBody();

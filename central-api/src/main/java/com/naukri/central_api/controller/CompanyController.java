@@ -3,6 +3,7 @@ package com.naukri.central_api.controller;
 import com.naukri.central_api.dto.CompanyRegistrationDto;
 import com.naukri.central_api.dto.JwtTokenResponseDto;
 import com.naukri.central_api.dto.RecruiterDetailsDto;
+import com.naukri.central_api.model.AppUser;
 import com.naukri.central_api.model.Company;
 import com.naukri.central_api.service.CompanyService;
 import com.naukri.central_api.utility.AuthUtility;
@@ -41,7 +42,8 @@ public class CompanyController {
     public ResponseEntity inviteRecruiter(@RequestBody RecruiterDetailsDto recruiterDetailsDto,
                                           @RequestHeader String Authorization) {
 
-
+        AppUser recruiter = companyService.inviteRecruiter(recruiterDetailsDto, Authorization);
+        return new ResponseEntity<>(recruiter, HttpStatus.CREATED);
 
     }
 

@@ -6,7 +6,9 @@ import com.naukri.central_api.model.AppUser;
 import com.naukri.central_api.model.Skill;
 import com.naukri.central_api.utility.AuthUtility;
 import com.naukri.central_api.utility.MappingUtility;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,17 +19,17 @@ public class UserService {
     SkillService skillService;
     MappingUtility mappingUtility;
     DataBaseApiConnector dbApiConnector;
-    AuthUtility authUtility;
+
+    @Value("${secret.password}")
+    String secretPassword;
 
     @Autowired
     public UserService(SkillService skillService,
                        MappingUtility mappingUtility,
-                       DataBaseApiConnector dbApiConnector,
-                       AuthUtility authUtility) {
+                       DataBaseApiConnector dbApiConnector) {
         this.skillService = skillService;
         this.mappingUtility = mappingUtility;
         this.dbApiConnector = dbApiConnector;
-        this.authUtility = authUtility;
     }
 
     public AppUser registerJobSeeker(JobSeekerRegistrationDto jobSeekerDto){
@@ -51,15 +53,24 @@ public class UserService {
 
     }
 
+    public String decryptJwtToken(String token) {
+        String payload = Jwts.parser().setSigningKey(secretPassword)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+
+        return payload;
+    }
+
     public AppUser getUserFromToken(String token) {
 
-        String email = authUtility.decryptJwtToken(token).split(":")[0];
+        String email = this.decryptJwtToken(token).split(":")[0];
         return dbApiConnector.callGetUserByEmailEndpoint(email);
 
     }
 
     public boolean isAdminUser(AppUser user) {
-        return user.getUserType() == "Admin" ? true : false;
+        return user.getUserType().equals("ADMIN") ? true : false;
     }
 
     AppUser saveUser(AppUser user) {

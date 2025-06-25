@@ -1,6 +1,7 @@
 package com.naukri.central_api.service;
 
 import com.naukri.central_api.connector.DataBaseApiConnector;
+import com.naukri.central_api.connector.NotificationApiConnector;
 import com.naukri.central_api.dto.CompanyRegistrationDto;
 import com.naukri.central_api.dto.RecruiterDetailsDto;
 import com.naukri.central_api.exception.UnAuthorizedException;
@@ -16,14 +17,17 @@ public class CompanyService {
     MappingUtility mappingUtility;
     DataBaseApiConnector dbApiConnector;
     UserService userService;
+    NotificationApiConnector notificationApiConnector;
 
     @Autowired
     public CompanyService(MappingUtility mappingUtility,
                           DataBaseApiConnector dbApiConnector,
-                          UserService userService) {
+                          UserService userService,
+                          NotificationApiConnector notificationApiConnector) {
         this.mappingUtility = mappingUtility;
         this.dbApiConnector = dbApiConnector;
         this.userService = userService;
+        this.notificationApiConnector = notificationApiConnector;
     }
 
     /**
@@ -69,7 +73,10 @@ public class CompanyService {
         Company company = admin.getCompany();
 
         AppUser recruiter = mappingUtility.mapRecruiterDtoToAppUser(recruiterDetailsDto, company);
-        return userService.saveUser(recruiter);
+        recruiter = userService.saveUser(recruiter);
+
+        notificationApiConnector.callInviteRecruiterEndpoint(recruiter);
+        return recruiter;
 
     }
 

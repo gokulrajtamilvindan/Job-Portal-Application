@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Recruiter Invitation</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+    .container {
+        background-color: #ffffff;
+        max-width: 600px;
+        margin: auto;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+    h2 {
+        color: #333;
+    }
+    .company-name {
+        font-weight: bold;
+        color: #007bff;
+    }
+    .button {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #28a745;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .footer {
+        margin-top: 30px;
+        font-size: 12px;
+        color: #777;
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>You're Invited to Join as a Recruiter!</h2>
+  <p>Hello <span>[[${recruiterName}]]</span>,</p>
+
+  <p>
+    <span class="company-name">[[${companyName}]]</span> has invited you to join the Naukri platform as a recruiter.
+    By accepting this invite, you will be able to hire candidates on behalf of this company.
+  </p>
+
+  <p>
+    Please click the button below to accept the invitation and complete your onboarding process:
+  </p>
+
+  <a class="button" th:href="@{${acceptLink}}">Accept Invitation</a>
+
+  <div class="footer">
+    If you were not expecting this email, you can safely ignore it.<br/>
+    © 2025 Naukri Platform. All rights reserved.
+  </div>
+</div>
+</body>
+</html>
