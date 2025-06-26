@@ -57,7 +57,9 @@
     Please click the button below to accept the invitation and complete your onboarding process:
   </p>
 
-  <a class="button" th:href="@{${acceptLink}}">Accept Invitation</a>
+  <form th:action="@{${acceptLink}}" method="put">
+    <button type="submit" class="button">Accept Invitation</button>
+  </form>
 
   <div class="footer">
     If you were not expecting this email, you can safely ignore it.<br/>

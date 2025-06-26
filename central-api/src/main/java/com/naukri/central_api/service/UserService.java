@@ -79,4 +79,12 @@ public class UserService {
 
     }
 
+    public boolean isUserRecruiter(AppUser user) {
+        return user.getUserType().equals("RECRUITER") ? true : false;
+    }
+
+    public AppUser getUserByEmail(String email) {
+        return dbApiConnector.callGetUserByEmailEndpoint(email);
+    }
+
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Recruiter Invitation Accepted</title>
+    <style>
+        .container {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 24px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .body-text {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 16px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .footer {
+            font-size: 14px;
+            color: #777;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">Recruiter Accepted the Invitation</div>
+
+    <div class="body-text">
+        Dear [[${adminName}]],
+    </div>
+
+    <div class="body-text">
+        We're excited to inform you that <span class="highlight">[[${recruiterName}]]</span> has accepted the invitation to join your company, <span class="highlight">[[${companyName}]]</span>, on our platform.
+    </div>
+
+    <div class="body-text">
+        Here are the details of the recruiter:
+        <ul>
+            <li><strong>Name:</strong> [[${recruiterName}]]</li>
+            <li><strong>Email:</strong> [[${recruiterEmail}]]</li>
+            <li><strong>Phone:</strong> [[${recruiterPhone}]]</li>
+        </ul>
+    </div>
+
+    <div class="body-text">
+        The recruiter can now start hiring on behalf of your company.
+    </div>
+
+    <div class="footer">
+        Thank you,<br/>
+        Naukri Team
+    </div>
+</div>
+</body>
+</html>
