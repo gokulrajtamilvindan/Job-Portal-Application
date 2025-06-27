@@ -3,10 +3,10 @@ package com.naukri.central_api.service;
 import com.naukri.central_api.connector.DataBaseApiConnector;
 import com.naukri.central_api.connector.NotificationApiConnector;
 import com.naukri.central_api.dto.CompanyRegistrationDto;
+import com.naukri.central_api.dto.CreateJobDto;
 import com.naukri.central_api.dto.RecruiterDetailsDto;
 import com.naukri.central_api.exception.UnAuthorizedException;
-import com.naukri.central_api.model.AppUser;
-import com.naukri.central_api.model.Company;
+import com.naukri.central_api.model.*;
 import com.naukri.central_api.utility.AuthUtility;
 import com.naukri.central_api.utility.MappingUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +23,27 @@ public class CompanyService {
     UserService userService;
     NotificationApiConnector notificationApiConnector;
     AuthUtility authUtility;
+    ApplicationFormService applicationFormService;
+    SkillService skillService;
+    JobService jobService;
 
     @Autowired
     public CompanyService(MappingUtility mappingUtility,
                           DataBaseApiConnector dbApiConnector,
                           UserService userService,
                           NotificationApiConnector notificationApiConnector,
-                          AuthUtility authUtility) {
+                          AuthUtility authUtility,
+                          ApplicationFormService applicationFormService,
+                          SkillService skillService,
+                          JobService jobService) {
         this.mappingUtility = mappingUtility;
         this.dbApiConnector = dbApiConnector;
         this.userService = userService;
         this.notificationApiConnector = notificationApiConnector;
         this.authUtility = authUtility;
+        this.applicationFormService = applicationFormService;
+        this.skillService = skillService;
+        this.jobService = jobService;
     }
 
     /**
@@ -112,6 +121,21 @@ public class CompanyService {
 
         notificationApiConnector.callAcceptInvitationEndpoint(mailDetails);
         return recruiter;
+    }
+
+    public Job createJob(CreateJobDto createJobDto,
+                          String Authorization) {
+        String token = authUtility.extractTokenFromBearerToken(Authorization);
+        AppUser recruiter = userService.getUserFromToken(token);
+        if (!userService.isUserRecruiter(recruiter)) {
+            throw new UnAuthorizedException("Not Authorized to create a jobs");
+        }
+
+        ApplicationForm applicationForm = applicationFormService.createApplicationFormByQuestions(createJobDto.getQuestions());
+        List<Skill> skills = skillService.getAllSkills(createJobDto.getSkills());
+        Job job = mappingUtility.createJobFromJobDto(createJobDto, applicationForm, skills, recruiter);
+
+        return jobService.saveJob(job);
     }
 
 }

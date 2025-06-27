@@ -61,4 +61,8 @@ public class AuthUtility {
 
     }
 
+    public String extractTokenFromBearerToken(String bearerToken) {
+        return bearerToken.substring(7);
+    }
+
 }

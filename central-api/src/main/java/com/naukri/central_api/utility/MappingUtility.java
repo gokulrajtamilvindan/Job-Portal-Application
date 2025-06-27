@@ -1,13 +1,14 @@
 package com.naukri.central_api.utility;
 
 import com.naukri.central_api.dto.CompanyRegistrationDto;
+import com.naukri.central_api.dto.CreateJobDto;
 import com.naukri.central_api.dto.JobSeekerRegistrationDto;
 import com.naukri.central_api.dto.RecruiterDetailsDto;
-import com.naukri.central_api.model.AppUser;
-import com.naukri.central_api.model.Company;
-import com.naukri.central_api.model.Skill;
+import com.naukri.central_api.model.*;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -67,5 +68,34 @@ public class MappingUtility {
         return user;
 
     }
+
+    public Questions createQuestionFromQuestionName(String questionName, boolean isMandatory) {
+        Questions q = new Questions();
+        q.setQuestion(questionName);
+        q.setMandatory(isMandatory);
+        return q;
+    }
+
+    public Job createJobFromJobDto(CreateJobDto createJobDto,
+                                   ApplicationForm applicationForm,
+                                   List<Skill> skills,
+                                   AppUser recruiter){
+        Job job = new Job();
+        job.setCreatedBy(recruiter);
+        job.setJobDescription(createJobDto.getJobDescription());
+        job.setJobApplications(new ArrayList<>());
+        job.setLocation(createJobDto.getLocation());
+        job.setSkills(skills);
+        job.setApplicationForm(applicationForm);
+        job.setState(createJobDto.getState());
+        job.setShortDescription(createJobDto.getShortDescription());
+        if(createJobDto.getState().equals("POSTED")){
+            job.setPostedDate(LocalDateTime.now());
+        }
+        job.setCreatedAt(LocalDateTime.now());
+        job.setUpdatedAt(LocalDateTime.now());
+        return job;
+    }
+
 
 }

@@ -23,9 +23,9 @@ public class AuthConfiguration {
                 .disable()
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
-                                "/api/v1/central/user/login",
                                 "/api/v1/central/user/register",
-                                        "/api/v1/central/company/register"
+                                        "/api/v1/central/company/register",
+                                "/api/v1/central/accept-invitation/**"
                         ).permitAll()
                                 .anyRequest().authenticated()
                 )

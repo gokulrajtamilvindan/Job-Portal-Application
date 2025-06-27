@@ -1,8 +1,6 @@
 package com.naukri.central_api.connector;
 
-import com.naukri.central_api.model.AppUser;
-import com.naukri.central_api.model.Company;
-import com.naukri.central_api.model.Skill;
+import com.naukri.central_api.model.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -69,6 +67,18 @@ public class DataBaseApiConnector extends RestApi{
         }
         return modelMapper.map(response, Company.class);
 
+    }
+
+    public Questions callCreateQuestionEndpoint(Questions questions) {
+        String url = baseUrl + "/questions/save";
+        Object response = this.makePostCall(url, questions, new HashMap<>());
+        return modelMapper.map(response, Questions.class);
+    }
+
+    public Job callSaveJobEndpoint(Job job){
+        String endpoint = baseUrl + "/job/save";
+        Object response = this.makePostCall(endpoint, job, new HashMap<>());
+        return modelMapper.map(response, Job.class);
     }
 
 }
